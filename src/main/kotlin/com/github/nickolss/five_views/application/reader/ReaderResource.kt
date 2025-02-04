@@ -40,8 +40,8 @@ class ReaderResource(
     }
 
     @PutMapping("{id}")
-    fun update(@Valid @RequestBody request: ReaderRequest, @PathVariable id: Long): ResponseEntity<ReaderResponse> {
-        return readerRepository.findById(id)?.let { existingReader ->
+    fun update(@Valid @RequestBody request: ReaderRequest, @PathVariable id: Long) =
+        readerRepository.findById(id)?.let { existingReader ->
             val updatedReader = existingReader.copy(
                 username = request.username,
                 email = request.email,
@@ -52,8 +52,9 @@ class ReaderResource(
                 ResponseEntity.ok(ReaderResponse.from(it))
             }
         } ?: ResponseEntity.notFound().build()
-    }
 
     @DeleteMapping("{id}")
     fun deleteById(@PathVariable id: Long) = readerRepository.deleteById(id)
 }
+
+
